@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Login Flow">
+    <test name="Selenium Web Automation tests">
+        <classes>
+            <class name="io.github.mMARUF.Selenium_Java.pages.TestExecution"/>
+
+            </classes>
+    </test>
+</suite>
