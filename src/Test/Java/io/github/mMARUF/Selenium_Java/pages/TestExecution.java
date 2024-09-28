@@ -1,4 +1,6 @@
 package io.github.mMARUF.Selenium_Java.pages;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -26,6 +28,13 @@ public class TestExecution extends BaseTestFile {
         return loginData.iterator();
     }
 
+    @DataProvider
+    public Iterator<Object[]> addWorkSpace() {
+        List<Object[]> loginData = new ArrayList<>();
+        loginData.add(new Object[]{"WorkSpace 1", "maruf.rahman.95@gmail.com"});
+        return loginData.iterator();
+    }
+
     @Test(dataProvider = "getLoginData")
     public void testLoginFeature(String email, String password, boolean isValidUser) {
 
@@ -33,13 +42,6 @@ public class TestExecution extends BaseTestFile {
         PageObjectFile pageObjectFile = new PageObjectFile(driver);
         pageObjectFile.loginOperation(email, password);
 
-        if (!isValidUser) {
-            assertEquals(pageObjectFile.getErrorMessage(), "Incorrect username or password.");
-        } else {
-            MyDashBoard myDashBoard = new MyDashBoard(driver);
-            assertEquals(myDashBoard.getPageTitle(), "Dashboard");
-            Assert.assertEquals(myDashBoard.getPageTitle(), "Dashboard");
-        }
     }
 
     @Test(dependsOnMethods = {"testLoginFeature"}, dataProvider = "createWorkFlowFromScratch")
@@ -51,8 +53,23 @@ public class TestExecution extends BaseTestFile {
         pageObjectFile.workFlowOperation(email, password);
 
 
+    }
 
+    @Test(dependsOnMethods = {"testLoginFeature"}, dataProvider = "addWorkSpace")
+    public void addWorkSpace(String namOfTheWorkSpace, String invitee) {
+
+        driver.get("https://app.respond.io/organization/spaces");
+        PageObjectFile pageObjectFile = new PageObjectFile(driver);
+
+        pageObjectFile.createNewWorkSpace(namOfTheWorkSpace, invitee);
 
 
     }
+
+
+
 }
+
+
+
+

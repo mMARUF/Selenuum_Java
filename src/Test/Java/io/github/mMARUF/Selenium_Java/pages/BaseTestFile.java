@@ -19,6 +19,6 @@ public class BaseTestFile {
 
     @AfterTest
     public void tearDown(){
-//        driver.quit();
+        driver.quit();
     }
 }
